@@ -973,7 +973,8 @@ GameObject:
   - component: {fileID: 7450204739474103908}
   - component: {fileID: 7977327603997543339}
   - component: {fileID: 7574040965136445273}
-  - component: {fileID: 4471412412767313375}
+  - component: {fileID: 5900806311890620}
+  - component: {fileID: 7395716027523139781}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1071,7 +1072,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _sensetivity: 7
   _luft: 60
---- !u!114 &4471412412767313375
+--- !u!114 &5900806311890620
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1080,7 +1081,54 @@ MonoBehaviour:
   m_GameObject: {fileID: 5601344737672985853}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 31a0cc65e76b51c40b658fd7f613dce6, type: 3}
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: a41c419ed56b7524c8607fa1a7fb24f1,
+    type: 3}
+  m_NotificationBehavior: 2
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7574040965136445273}
+        m_TargetAssemblyTypeName: CharacterMover, Assembly-CSharp
+        m_MethodName: Displace
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 0ff0faa6-f93b-4341-a063-d1d2410f7f45
+    m_ActionName: Gameplay/Movement[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d,/XInputControllerWindows/leftShoulder]
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Gameplay
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
+--- !u!114 &7395716027523139781
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5601344737672985853}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9a520ffe15af9b40ba23abc731ed1f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &5685112682121228552

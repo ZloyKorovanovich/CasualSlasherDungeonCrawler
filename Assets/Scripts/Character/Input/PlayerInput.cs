@@ -12,9 +12,4 @@ public class PlayerInput : MonoBehaviour
     {
         _character = GetComponent<CharacterMain>();
     }
-
-    private void Update()
-    {
-        _character.SetInputs(Input.GetAxis(_VERTICAL), Input.GetAxis(_HORIZONTAL));
-    }
 }

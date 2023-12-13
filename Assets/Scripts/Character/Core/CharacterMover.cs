@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 [DisallowMultipleComponent]
 [RequireComponent(typeof(Animator))]
@@ -30,21 +31,15 @@ public class CharacterMover : MonoBehaviour
 
     private void OnAnimatorIK(int layerInde)
     {
-        Displace(_inputAxis);
-        Rotate(_target, Time.deltaTime);
-        SetLook(_target);
     }
 
-    public void SetInputs(Vector3 inputAxis, Vector3 target)
+    public void Displace(InputAction.CallbackContext context)
     {
-        _inputAxis = inputAxis;
-        _target = target;
-    }
-
-    private void Displace(Vector3 inputAxis)
-    {
-        _controller.Move(Vector3.down * _GRAVITY_SPEED);
-        _animationHandler.Move(transform.InverseTransformDirection(_inputAxis));
+        var x = context.ReadValue<Vector2>().x;
+        var y = context.ReadValue<Vector2>().y;
+        var moveDirection = new Vector3(x, 0, y).normalized;
+        _animationHandler.Move(transform.InverseTransformDirection(moveDirection));
+        //_controller.Move(Vector3.down * _GRAVITY_SPEED);
     }
 
     private void SetLook(Vector3 target)
