@@ -1,19 +1,21 @@
 using UnityEngine;
 
 [DisallowMultipleComponent]
-[RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(CharacterMain))]
+[RequireComponent(typeof(CharacterAnimation))]
 [RequireComponent(typeof(CharacterController))]
 public class CharacterMover : MonoBehaviour
 {
     private const float _GRAVITY_SPEED = 0.5f;
 
     [SerializeField]
-    private float _sensetivity;
+    private float _sensetivity = 7.0f;
     [SerializeField]
-    private float _luft;
+    private float _luft = 60.0f;
 
     private CharacterController _controller;
-    private AnimationHandler _animationHandler;
+    private CharacterAnimation _animation;
+    private CharacterMain _main;
 
     private Vector3 _inputAxis;
     private Vector3 _target;
@@ -23,9 +25,13 @@ public class CharacterMover : MonoBehaviour
     private void Awake()
     {
         _controller = GetComponent<CharacterController>();
+        _animation = GetComponent<CharacterAnimation>();
+        _main = GetComponent<CharacterMain>();
+    }
 
-        var animator = GetComponent<Animator>();
-        _animationHandler = new AnimationHandler(animator);
+    private void Start()
+    {
+        _main.OnSetInputs += UpdateInputs;
     }
 
     private void OnAnimatorIK(int layerInde)
@@ -35,24 +41,18 @@ public class CharacterMover : MonoBehaviour
         SetLook(_target);
     }
 
-    public void SetInputs(Vector3 inputAxis, Vector3 target)
+    public void UpdateInputs()
     {
-        _inputAxis = inputAxis;
-        _target = target;
+        _inputAxis = _main.InputAxis;
+        _target = _main.Target;
     }
 
     private void Displace(Vector3 inputAxis)
     {
         _controller.Move(Vector3.down * _GRAVITY_SPEED);
-        _animationHandler.Move(transform.InverseTransformDirection(_inputAxis));
+        _animation.Move(transform.InverseTransformDirection(_inputAxis));
     }
 
-    private void SetLook(Vector3 target)
-    {
-        _animationHandler.SetLook(target);
-    }
-
-    // This one rotates player, don't touch this pice of shit, that actually works.
     private void Rotate(Vector3 target, float deltaTime)
     {
         bool rotating = false;
@@ -63,7 +63,7 @@ public class CharacterMover : MonoBehaviour
         transform.LookAt(target);
 
         float angle = Mathf.DeltaAngle(transform.eulerAngles.y, oldRotation.y);
-        _animationHandler.Rotate(angle, Time.deltaTime, 1.0f / _sensetivity);
+        _animation.Rotate(angle, Time.deltaTime, 1.0f / _sensetivity);
         angle = Mathf.Abs(angle);
         deltaTime *= _sensetivity;
 
@@ -73,7 +73,6 @@ public class CharacterMover : MonoBehaviour
             _isRotating = true;
 
         transform.eulerAngles = oldRotation;
-
         if (!_isRotating)
             return;
 
@@ -83,6 +82,11 @@ public class CharacterMover : MonoBehaviour
             rotating = false;
         }
 
-        _animationHandler.SetRotation(rotating);
+        _animation.SetRotation(rotating);
+    }
+
+    private void SetLook(Vector3 target)
+    {
+        _animation.SetLook(target);
     }
 }

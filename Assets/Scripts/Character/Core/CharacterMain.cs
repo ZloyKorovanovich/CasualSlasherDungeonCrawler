@@ -1,27 +1,25 @@
+using System;
 using UnityEngine;
 
 [DisallowMultipleComponent]
 public class CharacterMain : MonoBehaviour
 {
-    private CharacterMover _mover;
+    public Action OnSetInputs;
 
-    private void Awake()
+    private bool _isAttack;
+    private Vector3 _inputAxis;
+    private Vector3 _target;
+
+    public bool IsAttack => _isAttack;
+    public Vector3 InputAxis => _inputAxis;
+    public Vector3 Target => _target;
+
+    public void SetInputs(Vector3 inputAxis, bool isAttack, Vector3 target)
     {
-        _mover = GetComponent<CharacterMover>();
-    }
+        _inputAxis = inputAxis;
+        _isAttack = isAttack;
+        _target = target;
 
-    public void SetInputs(float vertical, float horizontal)
-    {
-        var inputAxis = new Vector3(horizontal, 0, vertical);
-        _mover?.SetInputs(inputAxis, CastPoint());
-
-        Vector3 CastPoint()
-        {
-            var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out var hit, 100.0f))
-                return hit.point;
-
-            return Vector3.zero;
-        }
+        OnSetInputs?.Invoke();
     }
 }

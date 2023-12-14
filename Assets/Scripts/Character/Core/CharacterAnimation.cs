@@ -1,17 +1,20 @@
 using UnityEngine;
 
-public class AnimationHandler
+[DisallowMultipleComponent]
+[RequireComponent(typeof(Animator))]
+public class CharacterAnimation : MonoBehaviour
 {
     private const string _ANIMATOR_VERTICAL = "Vertical";
     private const string _ANIMATOR_HORIZONTAL = "Horizontal";
     private const string _ANIMATOR_ROTATION = "Rotation";
     private const string _ANIMATOR_IS_ROTATING = "IsRotating";
+    private const string _ANIMATOR_IS_ATTACK = "IsAttack";
 
     private Animator _animator;
 
-    public AnimationHandler(Animator animator)
+    private void Awake()
     {
-        _animator = animator;
+        _animator = GetComponent<Animator>();
     }
 
     public void Move(Vector3 inputAxis)
@@ -34,5 +37,10 @@ public class AnimationHandler
     {
         _animator.SetLookAtWeight(1f, 0.7f, 0.9f, 1f, 1f); //some magic numbers
         _animator.SetLookAtPosition(target);
+    }
+
+    public void SetAttack()
+    {
+        _animator.SetTrigger(_ANIMATOR_IS_ATTACK);
     }
 }
