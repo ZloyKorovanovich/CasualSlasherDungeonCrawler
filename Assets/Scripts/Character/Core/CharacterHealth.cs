@@ -1,30 +1,36 @@
-using System;
 using UnityEngine;
 
-public class CharacterHealth : IDamagable
+[RequireComponent(typeof(CharacterMain))]
+public class CharacterHealth : MonoBehaviour, IDamagable
 {
-    private Action _onDeath;
-
     [SerializeField]
     private float _health = 100.0f;
 
-    public void SubscibeDeath(Action onDeath)
+    private CharacterMain _main;
+    private CharacterAnimation _animation;
+
+    private void Awake()
     {
-        _onDeath += onDeath;
+        _main = GetComponent<CharacterMain>();
+        _animation = GetComponent<CharacterAnimation>();
+
+        _main.OnDeath += Dispose;
     }
 
-    public void UnsubscribeDeath(Action onDeath)
+    private void Dispose()
     {
-        _onDeath -= onDeath;
+        Destroy(this);
     }
 
     public void TakeDamage(float damage)
     {
         _health -= damage;
-        if(_health < 0.0f)
+        if(_health <= 0.0f)
         {
             _health = 0.0f;
-            _onDeath?.Invoke();
+            _main.Die();
         }
+
+        _animation.SetHit();
     }
 }

@@ -23,6 +23,8 @@ public class CharacterMover : MonoBehaviour
         _controller = GetComponent<CharacterController>();
         _animation = GetComponent<CharacterAnimation>();
         _main = GetComponent<CharacterMain>();
+
+        _main.OnDeath += Dispose;
     }
 
     private void OnAnimatorIK(int layerInde)
@@ -30,6 +32,12 @@ public class CharacterMover : MonoBehaviour
         Displace(_main.InputAxis);
         Rotate(_main.Target, _main.InputAxis, Time.deltaTime);
         SetLook(_main.Target);
+    }
+
+    private void Dispose()
+    {
+        Destroy(this);
+        Destroy(_controller);
     }
 
     private void Displace(Vector3 inputAxis)

@@ -1,6 +1,7 @@
 using UnityEngine;
 
 [DisallowMultipleComponent]
+[RequireComponent(typeof(CharacterMain))]
 [RequireComponent(typeof(Animator))]
 public class CharacterAnimation : MonoBehaviour
 {
@@ -9,12 +10,14 @@ public class CharacterAnimation : MonoBehaviour
     private const string _ANIMATOR_ROTATION = "Rotation";
     private const string _ANIMATOR_IS_ROTATING = "IsRotating";
     private const string _ANIMATOR_IS_ATTACK = "IsAttack";
+    private const string _ANIAMTOR_IS_HIT = "IsHit";
 
     private Animator _animator;
 
     private void Awake()
     {
         _animator = GetComponent<Animator>();
+        GetComponent<CharacterMain>().OnDeath += Dispose;
     }
 
     public void Move(Vector3 inputAxis)
@@ -42,5 +45,16 @@ public class CharacterAnimation : MonoBehaviour
     public void SetAttack()
     {
         _animator.SetTrigger(_ANIMATOR_IS_ATTACK);
+    }
+
+    public void SetHit()
+    {
+        _animator.SetTrigger(_ANIAMTOR_IS_HIT);
+    }
+
+    public void Dispose()
+    {
+        Destroy(this);
+        Destroy(_animator);
     }
 }

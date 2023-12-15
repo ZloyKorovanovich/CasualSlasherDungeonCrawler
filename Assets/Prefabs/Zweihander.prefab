@@ -27,13 +27,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3108496028414329684}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.4221631, y: 0.05277471, z: 0.382744, w: 0.8200611}
+  m_LocalRotation: {x: -0.53666556, y: 0.4792508, z: 0.12760898, w: 0.68266016}
   m_LocalPosition: {x: 0.075, y: 0.047, z: 0.175}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: -47.121, y: -20.348, z: 58.989}
+  m_LocalEulerAnglesHint: {x: -58.763, y: 93.912, z: -40.993}
 --- !u!33 &4280871492087321130
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -96,11 +96,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c83f4ff609ab82a4480b6471d0cd4390, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _level: 0
   _damage: 20
-  _attackLength: 2
-  _attackRadius: 1.5
+  _attackLength: 1.5
+  _attackRadius: 1
   _attackable:
     serializedVersion: 2
     m_Bits: 8
+  _attackCallDown: 1
   _weaponOnGround: {fileID: 6281132835656665426, guid: f7abde6d74246544ca68af6fe7faa1b4,
     type: 3}

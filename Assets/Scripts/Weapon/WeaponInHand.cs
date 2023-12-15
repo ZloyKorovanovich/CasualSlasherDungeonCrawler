@@ -12,11 +12,14 @@ public class WeaponInHand : MonoBehaviour
     private float _attackRadius = 1.5f;
     [SerializeField]
     private LayerMask _attackable;
+    [SerializeField]
+    private float _attackCallDown = 1.0f;
 
     [SerializeField]
     private GameObject _weaponOnGround;
 
     public int Level => _level;
+    public float AttackCallDown => _attackCallDown;
 
     public void Attack(Vector3 position, Vector3 direction, IDamagable attacker)
     {
@@ -25,7 +28,7 @@ public class WeaponInHand : MonoBehaviour
         {
             foreach(var enemy in casted)
             {
-                var damagable =enemy.transform.gameObject.GetComponent<IDamagable>();
+                var damagable = enemy.transform.gameObject.GetComponent<IDamagable>();
                 if (damagable != null && damagable != attacker)
                     damagable.TakeDamage(_damage);
             }

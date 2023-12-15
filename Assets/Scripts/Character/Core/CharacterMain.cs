@@ -5,6 +5,7 @@ using UnityEngine;
 public class CharacterMain : MonoBehaviour
 {
     public Action OnSetInputs;
+    public Action OnDeath;
 
     private bool _isAttack;
     private bool _isPickUp;
@@ -24,5 +25,11 @@ public class CharacterMain : MonoBehaviour
         _isPickUp = interacting;
 
         OnSetInputs?.Invoke();
+    }
+
+    public void Die()
+    {
+        OnDeath?.Invoke();
+        Destroy(this);
     }
 }
