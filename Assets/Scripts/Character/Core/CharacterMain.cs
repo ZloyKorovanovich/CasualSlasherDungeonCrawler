@@ -7,18 +7,21 @@ public class CharacterMain : MonoBehaviour
     public Action OnSetInputs;
 
     private bool _isAttack;
+    private bool _isPickUp;
     private Vector3 _inputAxis;
     private Vector3 _target;
 
     public bool IsAttack => _isAttack;
+    public bool IsPickUp => _isPickUp;
     public Vector3 InputAxis => _inputAxis;
     public Vector3 Target => _target;
 
-    public void SetInputs(Vector3 inputAxis, bool isAttack, Vector3 target)
+    public void SetInputs(Vector3 inputAxis, Vector3 target, bool interacting)
     {
         _inputAxis = inputAxis;
-        _isAttack = isAttack;
         _target = target;
+        _isAttack = interacting;
+        _isPickUp = interacting;
 
         OnSetInputs?.Invoke();
     }

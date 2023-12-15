@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 5668019259997520412}
   - component: {fileID: 4280871492087321130}
   - component: {fileID: 7970620037636817436}
-  - component: {fileID: 5786532916724816486}
+  - component: {fileID: 2243742635568231791}
   m_Layer: 0
-  m_Name: Weapon_Zweihander
+  m_Name: Zweihander
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -84,7 +84,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &5786532916724816486
+--- !u!114 &2243742635568231791
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -93,12 +93,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 3108496028414329684}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 32532d5d67db20d4bb5768a22127fe11, type: 3}
+  m_Script: {fileID: 11500000, guid: c83f4ff609ab82a4480b6471d0cd4390, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _damage: 20
+  _attackLength: 2
+  _attackRadius: 1.5
   _attackable:
     serializedVersion: 2
     m_Bits: 8
-  _attackRadius: 1
-  _attackLength: 2
+  _weaponOnGround: {fileID: 6281132835656665426, guid: f7abde6d74246544ca68af6fe7faa1b4,
+    type: 3}

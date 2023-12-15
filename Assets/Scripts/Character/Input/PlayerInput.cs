@@ -22,7 +22,7 @@ public class PlayerInput : MonoBehaviour
     private void Update()
     {
         var inputAxis = new Vector3(Input.GetAxis(_HORIZONTAL), 0, Input.GetAxis(_VERTICAL));
-        _character.SetInputs(inputAxis, Input.GetMouseButton(0), TargetPoint(inputAxis));
+        _character.SetInputs(inputAxis, TargetPoint(inputAxis), Input.GetMouseButtonUp(0));
     }
 
     private Vector3 TargetPoint(Vector3 inputAxis)
@@ -32,9 +32,12 @@ public class PlayerInput : MonoBehaviour
 
         if (casted.Length > 0)
         {
-            var closestMagnitude = _visionRadius;
+            var closestMagnitude = _visionRadius + 1.0f;
             foreach (var target in casted)
             {
+                if (target.transform == transform)
+                    continue;
+
                 var currentMagnitude = Vector3.SqrMagnitude(transform.position - target.transform.position);
                 if (currentMagnitude < closestMagnitude)
                 {

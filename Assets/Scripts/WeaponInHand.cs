@@ -1,18 +1,45 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class WeaponInHand : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField]
+    private int _level;
+    [SerializeField]
+    private float _damage = 20.0f;
+    [SerializeField]
+    private float _attackLength = 2.0f;
+    [SerializeField]
+    private float _attackRadius = 1.5f;
+    [SerializeField]
+    private LayerMask _attackable;
+
+    [SerializeField]
+    private GameObject _weaponOnGround;
+
+    public int Level => _level;
+
+    public void Attack(Vector3 position, Vector3 direction, IDamagable attacker)
     {
-        
+        var casted = Physics.SphereCastAll(position, _attackRadius, direction, _attackLength, _attackable);
+        if(casted.Length > 0)
+        {
+            foreach(var enemy in casted)
+            {
+                var damagable =enemy.transform.gameObject.GetComponent<IDamagable>();
+                if (damagable != null && damagable != attacker)
+                    damagable.TakeDamage(_damage);
+            }
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Drop()
     {
-        
+        if(_weaponOnGround)
+        {
+            var drop = ServiceLocator.GetService<PropManager>().SpawnProp(_weaponOnGround, transform.position, transform.rotation);
+            drop.GetComponent<Rigidbody>().AddForce(Vector3.up * 12.0f);
+        }
+
+        Destroy(gameObject);
     }
 }
