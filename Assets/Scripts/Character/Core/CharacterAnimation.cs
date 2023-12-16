@@ -3,7 +3,7 @@ using UnityEngine;
 [DisallowMultipleComponent]
 [RequireComponent(typeof(CharacterMain))]
 [RequireComponent(typeof(Animator))]
-public class CharacterAnimation : MonoBehaviour
+public class CharacterAnimation : CharacterComponent
 {
     private const string _ANIMATOR_VERTICAL = "Vertical";
     private const string _ANIMATOR_HORIZONTAL = "Horizontal";
@@ -17,7 +17,8 @@ public class CharacterAnimation : MonoBehaviour
     private void Awake()
     {
         _animator = GetComponent<Animator>();
-        GetComponent<CharacterMain>().OnDeath += Dispose;
+        _characterMain = GetComponent<CharacterMain>();
+        _characterMain.OnDeath += Dispose;
     }
 
     public void Move(Vector3 inputAxis)

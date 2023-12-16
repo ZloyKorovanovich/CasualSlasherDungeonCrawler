@@ -3,7 +3,7 @@ using UnityEngine;
 [DisallowMultipleComponent]
 [RequireComponent(typeof(CharacterMain))]
 [RequireComponent(typeof(CharacterController))]
-public class CharacterMover : MonoBehaviour
+public class CharacterMover : CharacterComponent
 {
     private const float _GRAVITY_SPEED = 0.5f;
 
@@ -14,7 +14,6 @@ public class CharacterMover : MonoBehaviour
 
     private CharacterController _controller;
     private CharacterAnimation _animation;
-    private CharacterMain _main;
 
     private bool _isRotating;
 
@@ -22,16 +21,16 @@ public class CharacterMover : MonoBehaviour
     {
         _controller = GetComponent<CharacterController>();
         _animation = GetComponent<CharacterAnimation>();
-        _main = GetComponent<CharacterMain>();
+        _characterMain = GetComponent<CharacterMain>();
 
-        _main.OnDeath += Dispose;
+        _characterMain.OnDeath += Dispose;
     }
 
     private void OnAnimatorIK(int layerInde)
     {
-        Displace(_main.InputAxis);
-        Rotate(_main.Target, _main.InputAxis, Time.deltaTime);
-        SetLook(_main.Target);
+        Displace(_characterMain.InputAxis);
+        Rotate(_characterMain.Target, _characterMain.InputAxis, Time.deltaTime);
+        SetLook(_characterMain.Target);
     }
 
     private void Dispose()

@@ -2,7 +2,7 @@ using UnityEngine;
 
 [DisallowMultipleComponent]
 [RequireComponent(typeof(CharacterMain))]
-public class PlayerInput : MonoBehaviour
+public class PlayerInput : CharacterComponent
 {
     private const string _VERTICAL = "Vertical";
     private const string _HORIZONTAL = "Horizontal";
@@ -14,13 +14,12 @@ public class PlayerInput : MonoBehaviour
     [SerializeField]
     private float _visionRadius = 5.0f;
 
-    private CharacterMain _character;
     private Vector3 _oldTarget;
 
     private void Awake()
     {
-        _character = GetComponent<CharacterMain>();
-        _character.OnDeath += CharacterDeath;
+        _characterMain = GetComponent<CharacterMain>();
+        _characterMain.OnDeath += CharacterDeath;
     }
 
     private void CharacterDeath()
@@ -32,7 +31,7 @@ public class PlayerInput : MonoBehaviour
     {
         var inputAxis = new Vector3(Input.GetAxis(_HORIZONTAL), 0, Input.GetAxis(_VERTICAL));
         var currentTarget = Vector3.Lerp(_oldTarget, TargetPoint(inputAxis), Time.deltaTime * 2.0f);
-        _character.SetInputs(inputAxis, currentTarget, Input.GetMouseButtonUp(0));
+        _characterMain.SetInputs(inputAxis, currentTarget, Input.GetMouseButtonUp(0));
         _oldTarget = currentTarget;
     }
 

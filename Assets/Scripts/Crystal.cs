@@ -1,26 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Collider))]
 public class Crystal : MonoBehaviour
 {
     [SerializeField]
-    private float _rotateSpeed = 10.0f;
-    [SerializeField]
-    private float _movingSpeed = 5.0f;
-    [SerializeField]
-    private float _movingAmplitude = 0.3f;
+    private int _crystalCount;
 
-    private Vector3 _pos;
-
-    private void OnEnable()
+    private void OnTriggerEnter(Collider other)
     {
-        _pos = transform.position;
-    }
-
-    private void Update()
-    {
-        transform.Rotate(Vector3.up * _rotateSpeed * Time.deltaTime);
-        transform.position = _pos + Vector3.up * Mathf.Sin(Time.time * _movingSpeed) * _movingAmplitude;
+        if (other.tag == "Player")
+        {
+            ServiceLocator.GetService<CrystalManager>().AddCrystals(_crystalCount);
+            Destroy(gameObject);
+        }
     }
 }

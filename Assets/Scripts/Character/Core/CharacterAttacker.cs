@@ -2,17 +2,14 @@ using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(CharacterMain))]
-public class CharacterAttacker : MonoBehaviour
+public class CharacterAttacker : CharacterComponent
 {
     [SerializeField]
     private Transform _rightHand;
     [SerializeField]
     private float _pickUpRadius = 3.0f;
-    [SerializeField]
-    private LayerMask _weaponLayer;
 
     private WeaponInHand _currentWeapon;
-    private CharacterMain _main;
     private CharacterAnimation _animation;
     private CharacterHealth _health;
 
@@ -22,22 +19,21 @@ public class CharacterAttacker : MonoBehaviour
 
     private void Awake()
     {
-        _main = GetComponent<CharacterMain>();
+        _characterMain = GetComponent<CharacterMain>();
         _animation = GetComponent<CharacterAnimation>();
         _health = GetComponent<CharacterHealth>();
 
-        _main.OnDeath += Dispose;
+        _characterMain.OnDeath += Dispose;
     }
 
     private void Start()
     {
-        _main.OnSetInputs += UpdateInputs;
+        _characterMain.OnSetInputs += UpdateInputs;
     }
 
     private void Dispose()
     {
         _currentWeapon?.Drop();
-        _animation?.Dispose();
         Destroy(this);
     }
 
@@ -46,7 +42,7 @@ public class CharacterAttacker : MonoBehaviour
         if (_isAttacking)
             return;
 
-        if (_main.IsAttack && _currentWeapon)
+        if (_characterMain.IsAttack && _currentWeapon)
         {
             _isAttacking = true;
             _animation.SetAttack();
@@ -63,12 +59,18 @@ public class CharacterAttacker : MonoBehaviour
 
     public void MakeAttack()
     {
-        _currentWeapon.Attack(transform.position + Vector3.up * 1.5f, transform.forward, _health);
+        if(_isAttacking)
+            _currentWeapon.Attack(transform.position + Vector3.up * 1.5f, transform.forward, _health);
     }
 
     public void SetWeapon(GameObject weapon)
     {
         _currentWeapon?.Drop();
         _currentWeapon = Instantiate(weapon, _rightHand).GetComponent<WeaponInHand>();
+    }
+
+    private void OnDestroy()
+    {
+        StopAllCoroutines();
     }
 }

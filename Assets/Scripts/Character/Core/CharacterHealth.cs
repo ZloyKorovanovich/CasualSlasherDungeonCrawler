@@ -1,20 +1,19 @@
 using UnityEngine;
 
 [RequireComponent(typeof(CharacterMain))]
-public class CharacterHealth : MonoBehaviour, IDamagable
+public class CharacterHealth : CharacterComponent, IDamagable
 {
     [SerializeField]
     private float _health = 100.0f;
 
-    private CharacterMain _main;
     private CharacterAnimation _animation;
 
     private void Awake()
     {
-        _main = GetComponent<CharacterMain>();
+        _characterMain = GetComponent<CharacterMain>();
         _animation = GetComponent<CharacterAnimation>();
 
-        _main.OnDeath += Dispose;
+        _characterMain.OnDeath += Dispose;
     }
 
     private void Dispose()
@@ -25,10 +24,11 @@ public class CharacterHealth : MonoBehaviour, IDamagable
     public void TakeDamage(float damage)
     {
         _health -= damage;
+        _characterMain.Hit();
         if(_health <= 0.0f)
         {
             _health = 0.0f;
-            _main.Die();
+            _characterMain.Die();
         }
 
         _animation.SetHit();

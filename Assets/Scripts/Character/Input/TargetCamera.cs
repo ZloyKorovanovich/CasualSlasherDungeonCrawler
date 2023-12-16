@@ -42,10 +42,11 @@ public class TargetCamera : MonoBehaviour
 
     private void UpdateDistance()
     {
+
         float angleRad = Mathf.Deg2Rad * angle;
 
         Vector3 offset = new Vector3(Mathf.Sin(angleRad) * currentDistance, height, Mathf.Cos(angleRad) * currentDistance);
-        Vector3 targetPosition = target.GetComponent<Collider>().bounds.center;
+        Vector3 targetPosition = target.transform.position + Vector3.up * 1.3f;
         Vector3 cameraPosition = targetPosition + offset;
 
         if (Physics.Raycast(targetPosition, (cameraPosition - targetPosition).normalized, obstacleLayer))
@@ -59,7 +60,7 @@ public class TargetCamera : MonoBehaviour
         float angleRad = Mathf.Deg2Rad * angle;
 
         Vector3 offset = new Vector3(Mathf.Sin(angleRad) * currentDistance, height, Mathf.Cos(angleRad) * currentDistance);
-        Vector3 targetPosition = target.GetComponent<Collider>().bounds.center;
+        Vector3 targetPosition = target.transform.position + Vector3.up * 1.3f;
         Vector3 cameraPosition = targetPosition + offset;
 
         transform.position = Vector3.Lerp(transform.position, cameraPosition, Time.deltaTime * 4);
