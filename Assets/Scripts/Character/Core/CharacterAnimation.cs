@@ -11,6 +11,7 @@ public class CharacterAnimation : CharacterComponent
     private const string _ANIMATOR_IS_ROTATING = "IsRotating";
     private const string _ANIMATOR_IS_ATTACK = "IsAttack";
     private const string _ANIAMTOR_IS_HIT = "IsHit";
+    private const string _ANIMATOR_MOVE_SPEED = "MoveSpeed";
 
     private Animator _animator;
 
@@ -21,10 +22,11 @@ public class CharacterAnimation : CharacterComponent
         _characterMain.OnDeath += Dispose;
     }
 
-    public void Move(Vector3 inputAxis)
+    public void Move(Vector3 inputAxis, float speed)
     {
         _animator.SetFloat(_ANIMATOR_VERTICAL, inputAxis.z);
         _animator.SetFloat(_ANIMATOR_HORIZONTAL, inputAxis.x);
+        _animator.SetFloat(_ANIMATOR_MOVE_SPEED, speed);
     }
 
     public void Rotate(float angle, float deltaTime, float sensetivity)

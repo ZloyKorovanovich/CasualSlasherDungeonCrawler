@@ -11,6 +11,8 @@ public class CharacterMover : CharacterComponent
     private float _sensetivity = 7.0f;
     [SerializeField]
     private float _luft = 60.0f;
+    [SerializeField, Range(0.0f, 1.0f)]
+    private float _moveSpeed = 1.0f;
 
     private CharacterController _controller;
     private CharacterAnimation _animation;
@@ -42,7 +44,7 @@ public class CharacterMover : CharacterComponent
     private void Displace(Vector3 inputAxis)
     {
         _controller.Move(Vector3.down * _GRAVITY_SPEED);
-        _animation.Move(transform.InverseTransformDirection(inputAxis));
+        _animation.Move(transform.InverseTransformDirection(inputAxis), _moveSpeed);
     }
 
     private void Rotate(Vector3 target, Vector3 inputAxis, float deltaTime)

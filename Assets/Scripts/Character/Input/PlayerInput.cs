@@ -30,7 +30,7 @@ public class PlayerInput : CharacterComponent
     private void Update()
     {
         var inputAxis = new Vector3(Input.GetAxis(_HORIZONTAL), 0, Input.GetAxis(_VERTICAL));
-        var currentTarget = Vector3.Lerp(_oldTarget, TargetPoint(inputAxis), Time.deltaTime * 2.0f);
+        var currentTarget = TargetPoint(inputAxis);
         _characterMain.SetInputs(inputAxis, currentTarget, Input.GetMouseButtonUp(0));
         _oldTarget = currentTarget;
     }

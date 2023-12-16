@@ -27,6 +27,7 @@ public class BotInput : CharacterComponent
     {
         if(!_target)
         {
+            _characterMain.SetInputs(Vector3.zero, _target.position + Vector3.up * 1.5f, false);
             Destroy(this);
             return;
         }
@@ -39,5 +40,7 @@ public class BotInput : CharacterComponent
             else
                 _characterMain.SetInputs(Vector3.Normalize(_target.position - transform.position), _target.position + Vector3.up * 1.5f, false);
         }
+        else
+            _characterMain.SetInputs(Vector3.zero, _target.position + Vector3.up * 1.5f, false);
     }
 }
