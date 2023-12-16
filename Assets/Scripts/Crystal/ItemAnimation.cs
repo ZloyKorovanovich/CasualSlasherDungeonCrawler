@@ -8,17 +8,13 @@ public class ItemAnimation : MonoBehaviour
     private float _movingSpeed = 5.0f;
     [SerializeField]
     private float _movingAmplitude = 0.3f;
-
-    private Vector3 _pos;
-
-    private void OnEnable()
-    {
-        _pos = transform.position;
-    }
+    [SerializeField]
+    private float _offset = 1.0f;
 
     private void Update()
     {
         transform.Rotate(Vector3.up * _rotateSpeed * Time.deltaTime);
-        transform.position = _pos + Vector3.up * Mathf.Sin(Time.time * _movingSpeed) * _movingAmplitude;
+        transform.position = new Vector3(transform.position.x,
+            Mathf.Sin(Time.time * _movingSpeed) * _movingAmplitude + _offset, transform.position.z);
     }
 }

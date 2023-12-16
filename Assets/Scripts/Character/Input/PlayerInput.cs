@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 [DisallowMultipleComponent]
 [RequireComponent(typeof(CharacterMain))]
@@ -8,13 +10,9 @@ public class PlayerInput : CharacterComponent
     private const string _HORIZONTAL = "Horizontal";
 
     [SerializeField]
-    private LayerMask _interactable;
-    [SerializeField]
-    private LayerMask _enemy;
+    private LayerMask _lookable;
     [SerializeField]
     private float _visionRadius = 5.0f;
-
-    private Vector3 _oldTarget;
 
     private void Awake()
     {
@@ -30,33 +28,55 @@ public class PlayerInput : CharacterComponent
     private void Update()
     {
         var inputAxis = new Vector3(Input.GetAxis(_HORIZONTAL), 0, Input.GetAxis(_VERTICAL));
-        var currentTarget = TargetPoint(inputAxis);
-        _characterMain.SetInputs(inputAxis, currentTarget, Input.GetMouseButtonUp(0));
-        _oldTarget = currentTarget;
+        _characterMain.SetInputs(inputAxis, TargetPoint(inputAxis), Input.GetMouseButtonUp(0));
     }
 
     private Vector3 TargetPoint(Vector3 inputAxis)
     {
-        // Need to sort priority, primary targets => enemies, secondaey => interactable
-
         var closestTarget = transform.position + inputAxis + Vector3.up * 1.5f;
-        var casted = Physics.OverlapSphere(transform.position, _visionRadius, _enemy + _interactable);
+        var casted = Physics.OverlapSphere(transform.position, _visionRadius, _lookable, QueryTriggerInteraction.Collide);
 
         if (casted.Length > 0)
         {
-            var closestMagnitude = _visionRadius + 1.0f;
-            foreach (var target in casted)
+            var closestMagnitude = Mathf.Infinity;
+
+            bool isSecondIteration = true;
+            var secondaryList = new List<Transform>();
+
+            for(int i = 0; i < casted.Length; i++)
             {
-                if (target.transform == transform)
+                if (casted[i].transform == transform)
                     continue;
 
-                var currentMagnitude = Vector3.SqrMagnitude(transform.position - target.transform.position);
-                if (currentMagnitude < closestMagnitude)
+                if (!casted[i].GetComponent<CharacterMain>())
                 {
-                    closestTarget = target.transform.position;
-                    closestMagnitude = currentMagnitude;
+                    secondaryList.Add(casted[i].transform);
+                    continue;
+                }
+
+                var magnitude = Vector3.SqrMagnitude(casted[i].transform.position - transform.position);
+                if (magnitude < closestMagnitude)
+                {
+                    isSecondIteration = false;
+                    closestMagnitude = magnitude;
+                    closestTarget = casted[i].transform.position + Vector3.up * 1.6f;
                 }
             }
+
+            if (!isSecondIteration)
+                return closestTarget;
+
+            for (int i = 1; i < secondaryList.Count; i++)
+            {
+                var magnitude = Vector3.SqrMagnitude(secondaryList[i].position - transform.position);
+                if (magnitude < closestMagnitude)
+                {
+                    closestMagnitude = magnitude;
+                    closestTarget = secondaryList[i].transform.position + Vector3.up * 1.6f;
+                }
+            }
+
+            return closestTarget;
         }
 
         return closestTarget;

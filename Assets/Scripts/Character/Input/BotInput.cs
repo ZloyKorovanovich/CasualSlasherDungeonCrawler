@@ -2,7 +2,7 @@ using UnityEngine;
 
 [DisallowMultipleComponent]
 [RequireComponent(typeof(CharacterMain))]
-public class BotInput : CharacterComponent
+public class BotInput : CharacterInput
 {
     [SerializeField]
     private float _agressiveDistance = 5.0f;

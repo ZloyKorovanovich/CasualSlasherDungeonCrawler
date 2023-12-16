@@ -23,4 +23,11 @@ public class PropManager : MonoBehaviour, IService
 
         return instance;
     }
+
+    public void SpawnLostProp(GameObject prop, Vector3 position, Quaternion rotation)
+    {
+        var instance = Instantiate(prop, _propRoot);
+        instance.transform.position = position;
+        instance.transform.rotation = rotation;
+    }
 }
