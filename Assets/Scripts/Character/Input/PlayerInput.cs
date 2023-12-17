@@ -1,10 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 [DisallowMultipleComponent]
 [RequireComponent(typeof(CharacterMain))]
-public class PlayerInput : CharacterComponent
+public class PlayerInput : CharacterInput
 {
     private const string _VERTICAL = "Vertical";
     private const string _HORIZONTAL = "Horizontal";
@@ -66,7 +65,7 @@ public class PlayerInput : CharacterComponent
             if (!isSecondIteration)
                 return closestTarget;
 
-            for (int i = 1; i < secondaryList.Count; i++)
+            for (int i = 0; i < secondaryList.Count; i++)
             {
                 var magnitude = Vector3.SqrMagnitude(secondaryList[i].position - transform.position);
                 if (magnitude < closestMagnitude)

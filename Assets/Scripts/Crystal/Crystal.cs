@@ -21,7 +21,7 @@ public class Crystal : MonoBehaviour
         _active = true;
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         if (!_active)
             return;
@@ -29,7 +29,8 @@ public class Crystal : MonoBehaviour
         if (other.tag == "Player")
         {
             ServiceLocator.GetService<CrystalManager>().AddCrystals(_crystalCount);
-            Destroy(gameObject);
+            GetComponent<ItemAnimation>()?.PickUpAnimation();
+            Destroy(this);
         }
     }
 }

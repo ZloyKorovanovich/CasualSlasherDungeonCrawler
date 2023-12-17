@@ -34,7 +34,17 @@ public class CharacterDier : CharacterComponent
         foreach (var rb in Ragdoll)
         {
             rb.isKinematic = !activate;
-            rb.transform.GetComponent<Collider>().enabled = activate;
+            var collider = rb.transform.GetComponent<Collider>();
+            collider.enabled = activate;
+            if (activate)
+            {
+                var joint = rb.transform.GetComponent<CharacterJoint>();
+                if (joint)
+                    Destroy(joint, 5.0f);
+
+                Destroy(rb, 5.0f);
+                Destroy(collider, 5.0f);
+            }
         }
     }
 }

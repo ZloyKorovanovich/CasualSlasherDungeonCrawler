@@ -17,6 +17,8 @@ public class TargetCamera : MonoBehaviour
 
     private void Awake()
     {
+        if (!target)
+            target = GameObject.FindGameObjectWithTag("Player").transform;
         InitializeCameraPosition();
     }
 

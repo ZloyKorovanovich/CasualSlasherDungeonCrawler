@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class ItemAnimation : MonoBehaviour
@@ -16,5 +17,23 @@ public class ItemAnimation : MonoBehaviour
         transform.Rotate(Vector3.up * _rotateSpeed * Time.deltaTime);
         transform.position = new Vector3(transform.position.x,
             Mathf.Sin(Time.time * _movingSpeed) * _movingAmplitude + _offset, transform.position.z);
+    }
+
+    public void PickUpAnimation()
+    {
+        StartCoroutine(Destroing());
+    }
+
+    private IEnumerator Destroing()
+    {
+        int iterations = 15;
+        var step = transform.localScale / iterations;
+        for(int i = 0; i < iterations; i++)
+        {
+            transform.localScale -= step;
+            yield return new WaitForSeconds(0.5f / iterations);
+        }
+
+        Destroy(gameObject);
     }
 }
