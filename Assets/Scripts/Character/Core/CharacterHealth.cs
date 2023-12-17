@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(CharacterMain))]
-public class CharacterHealth : CharacterComponent, IDamagable
+public class CharacterHealth : CharacterComponent, IDamagable, IHealable
 {
     [SerializeField]
     private float _maxHealth = 100.0f;
@@ -41,14 +41,22 @@ public class CharacterHealth : CharacterComponent, IDamagable
     public void TakeDamage(float damage)
     {
         _health -= damage;
-        _characterMain.Hit();
+        _animation.SetHit();
         _healthBar?.FillBar(_health / _maxHealth);
-        if(_health <= 0.0f)
+        if (_health <= 0.0f)
         {
             _health = 0.0f;
             _characterMain.Die();
         }
+    }
 
-        _animation.SetHit();
+    public void Heal(float amount)
+    {
+        _health += amount;
+        if(_health > _maxHealth)
+            _health = _maxHealth;
+
+        _animation.SetHeal();
+        _healthBar?.FillBar(_health / _maxHealth);
     }
 }

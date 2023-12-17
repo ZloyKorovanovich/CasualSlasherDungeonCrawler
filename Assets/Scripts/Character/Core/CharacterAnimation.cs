@@ -9,10 +9,11 @@ public class CharacterAnimation : CharacterComponent
     private const string _ANIMATOR_HORIZONTAL = "Horizontal";
     private const string _ANIMATOR_ROTATION = "Rotation";
     private const string _ANIMATOR_IS_ROTATING = "IsRotating";
-    private const string _ANIMATOR_IS_ATTACK = "IsAttack";
-    private const string _ANIAMTOR_IS_HIT = "IsHit";
+    private const string _ANIMATOR_ATTACK = "Attack";
+    private const string _ANIAMTOR_HIT = "Hit";
     private const string _ANIMATOR_MOVE_SPEED = "MoveSpeed";
     private const string _ANIMATOR_ATTACK_SPEED = "AttackSpeed";
+    private const string _ANIMATOR_HEAL = "Heal";
 
     private Animator _animator;
 
@@ -48,13 +49,18 @@ public class CharacterAnimation : CharacterComponent
 
     public void SetAttack(float speed)
     {
-        _animator.SetTrigger(_ANIMATOR_IS_ATTACK);
+        _animator.SetTrigger(_ANIMATOR_ATTACK);
         _animator.SetFloat(_ANIMATOR_ATTACK_SPEED, speed);
     }
 
     public void SetHit()
     {
-        _animator.SetTrigger(_ANIAMTOR_IS_HIT);
+        _animator.SetTrigger(_ANIAMTOR_HIT);
+    }
+
+    public void SetHeal()
+    {
+        _animator.SetTrigger(_ANIMATOR_HEAL);
     }
 
     public void Dispose()

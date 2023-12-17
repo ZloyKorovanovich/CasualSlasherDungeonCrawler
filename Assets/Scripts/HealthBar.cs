@@ -48,4 +48,9 @@ public class HealthBar : MonoBehaviour
 
         _isCourutine = false;
     }
+    private void OnDisable()
+    {
+        StopAllCoroutines();
+        _isCourutine = false;
+    }
 }

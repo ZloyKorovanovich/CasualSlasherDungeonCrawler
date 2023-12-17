@@ -6,7 +6,6 @@ public class CharacterMain : MonoBehaviour
 {
     public Action OnSetInputs;
     public Action OnDeath;
-    public Action OnHit;
 
     private bool _isAttack;
     private bool _isPickUp;
@@ -32,10 +31,5 @@ public class CharacterMain : MonoBehaviour
     {
         OnDeath?.Invoke();
         Destroy(this);
-    }
-
-    public void Hit()
-    {
-        OnHit?.Invoke();
     }
 }
