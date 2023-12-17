@@ -15,6 +15,7 @@ public class BotInput : CharacterInput
     {
         _characterMain = GetComponent<CharacterMain>();
         _target = GameObject.FindGameObjectWithTag("Player").transform;
+        _target.GetComponent<CharacterMain>().OnDeath += OnPlayerDead;
         _characterMain.OnDeath += CharacterDeath;
     }
 
@@ -23,14 +24,17 @@ public class BotInput : CharacterInput
         Destroy(this);
     }
 
+    private void OnPlayerDead()
+    {
+        _characterMain.SetInputs(Vector3.zero, transform.forward + Vector3.up * 1.5f, false);
+        Destroy(this);
+        return;
+    }
+
     private void Update()
     {
         if(!_target)
-        {
-            _characterMain.SetInputs(Vector3.zero, _target.position + Vector3.up * 1.5f, false);
-            Destroy(this);
-            return;
-        }
+            OnPlayerDead();
 
         var dist = Vector3.Distance(transform.position, _target.position);
         if (dist < _agressiveDistance)

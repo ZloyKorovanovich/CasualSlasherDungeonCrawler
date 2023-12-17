@@ -12,6 +12,7 @@ public class CharacterAnimation : CharacterComponent
     private const string _ANIMATOR_IS_ATTACK = "IsAttack";
     private const string _ANIAMTOR_IS_HIT = "IsHit";
     private const string _ANIMATOR_MOVE_SPEED = "MoveSpeed";
+    private const string _ANIMATOR_ATTACK_SPEED = "AttackSpeed";
 
     private Animator _animator;
 
@@ -45,9 +46,10 @@ public class CharacterAnimation : CharacterComponent
         _animator.SetLookAtPosition(target);
     }
 
-    public void SetAttack()
+    public void SetAttack(float speed)
     {
         _animator.SetTrigger(_ANIMATOR_IS_ATTACK);
+        _animator.SetFloat(_ANIMATOR_ATTACK_SPEED, speed);
     }
 
     public void SetHit()

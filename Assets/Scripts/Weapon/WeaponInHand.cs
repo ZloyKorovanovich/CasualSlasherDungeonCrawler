@@ -14,11 +14,13 @@ public class WeaponInHand : MonoBehaviour
     private LayerMask _attackable;
     [SerializeField]
     private float _attackCallDown = 1.0f;
-
+    [SerializeField]
+    private float _attackSpeed = 1.0f;
     [SerializeField]
     private GameObject _weaponOnGround;
 
     public int Level => _level;
+    public float AttackSpeed => _attackSpeed;
     public float AttackCallDown => _attackCallDown;
 
     public void Attack(Vector3 position, Vector3 direction, IDamagable attacker)

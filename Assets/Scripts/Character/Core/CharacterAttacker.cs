@@ -45,7 +45,7 @@ public class CharacterAttacker : CharacterComponent
         if (_characterMain.IsAttack && _currentWeapon)
         {
             _isAttacking = true;
-            _animation.SetAttack();
+            _animation.SetAttack(_currentWeapon.AttackSpeed);
 
             StartCoroutine(AttackCallDown());
         }
