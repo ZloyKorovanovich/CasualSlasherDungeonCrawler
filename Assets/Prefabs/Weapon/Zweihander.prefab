@@ -104,5 +104,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   _attackCallDown: 1
+  _attackSpeed: 1
   _weaponOnGround: {fileID: 6281132835656665426, guid: f7abde6d74246544ca68af6fe7faa1b4,
     type: 3}

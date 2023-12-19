@@ -6,8 +6,6 @@ public class CharacterAttacker : CharacterComponent
 {
     [SerializeField]
     private Transform _rightHand;
-    [SerializeField]
-    private float _pickUpRadius = 3.0f;
 
     private WeaponInHand _currentWeapon;
     private CharacterAnimation _animation;

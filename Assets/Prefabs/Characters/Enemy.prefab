@@ -507,7 +507,7 @@ CharacterController:
   m_Enabled: 1
   serializedVersion: 3
   m_Height: 2
-  m_Radius: 0.5
+  m_Radius: 0.6
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
@@ -3071,13 +3071,28 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1090964312354062926, guid: 4040a3f2bbebf1849859ed0e0ad42410,
         type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1090964312354062926, guid: 4040a3f2bbebf1849859ed0e0ad42410,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1090964312354062926, guid: 4040a3f2bbebf1849859ed0e0ad42410,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1090964312354062926, guid: 4040a3f2bbebf1849859ed0e0ad42410,
+        type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1090964312354062926, guid: 4040a3f2bbebf1849859ed0e0ad42410,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.3
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 1090964312354062926, guid: 4040a3f2bbebf1849859ed0e0ad42410,
         type: 3}

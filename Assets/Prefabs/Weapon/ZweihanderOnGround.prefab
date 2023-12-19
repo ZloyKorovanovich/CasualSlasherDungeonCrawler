@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 7301386898654586742}
   - component: {fileID: 6201797873819811463}
   - component: {fileID: -2503487036541653783}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: ZweihanderOnGround
   m_TagString: Untagged
   m_Icon: {fileID: 0}
