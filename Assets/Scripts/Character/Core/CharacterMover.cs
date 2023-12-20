@@ -2,7 +2,6 @@ using UnityEngine;
 
 [DisallowMultipleComponent]
 [RequireComponent(typeof(CharacterMain))]
-[RequireComponent(typeof(CharacterController))]
 public class CharacterMover : CharacterComponent
 {
     private const float _GRAVITY_SPEED = 0.5f;
@@ -15,14 +14,14 @@ public class CharacterMover : CharacterComponent
     private float _moveSpeed = 1.0f;
 
     private CharacterController _controller;
-    private CharacterAnimation _animation;
+    private Animator _animator;
 
     private bool _isRotating;
 
     private void Awake()
     {
         _controller = GetComponent<CharacterController>();
-        _animation = GetComponent<CharacterAnimation>();
+        _animator = GetComponent<Animator>();
         _characterMain = GetComponent<CharacterMain>();
 
         _characterMain.OnDeath += Dispose;
@@ -44,7 +43,10 @@ public class CharacterMover : CharacterComponent
     private void Displace(Vector3 inputAxis)
     {
         _controller.Move(Vector3.down * _GRAVITY_SPEED);
-        _animation.Move(transform.InverseTransformDirection(inputAxis), _moveSpeed);
+        var direction = transform.InverseTransformDirection(inputAxis);
+        _animator.SetFloat("Vertical", direction.z);
+        _animator.SetFloat("Horizontal", direction.x);
+        _animator.SetFloat("MoveSpeed", _moveSpeed);
     }
 
     private void Rotate(Vector3 target, Vector3 inputAxis, float deltaTime)
@@ -57,7 +59,7 @@ public class CharacterMover : CharacterComponent
         transform.LookAt(target);
 
         float angle = Mathf.DeltaAngle(transform.eulerAngles.y, oldRotation.y);
-        _animation.Rotate(angle, Time.deltaTime, 1.0f / _sensetivity);
+        _animator.SetFloat("Rotation", -Mathf.Sign(angle), 1.0f / _sensetivity, Time.deltaTime);
         angle = Mathf.Abs(angle);
         deltaTime *= _sensetivity;
 
@@ -76,11 +78,12 @@ public class CharacterMover : CharacterComponent
             rotating = false;
         }
 
-        _animation.SetRotation(rotating);
+        _animator.SetBool("IsRotating", rotating);
     }
 
     private void SetLook(Vector3 target)
     {
-        _animation.SetLook(target);
+        _animator.SetLookAtWeight(1f, 0.7f, 0.9f, 1f, 1f);
+        _animator.SetLookAtPosition(target);
     }
 }

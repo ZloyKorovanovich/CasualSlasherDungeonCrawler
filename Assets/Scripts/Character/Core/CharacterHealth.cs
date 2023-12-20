@@ -10,7 +10,7 @@ public class CharacterHealth : CharacterComponent, IDamagable, IHealable
     [SerializeField]
     private HealthBar _healthBar;
 
-    private CharacterAnimation _animation;
+    private Animator _animator;
 
     private void OnValidate()
     {
@@ -21,7 +21,7 @@ public class CharacterHealth : CharacterComponent, IDamagable, IHealable
     private void Awake()
     {
         _characterMain = GetComponent<CharacterMain>();
-        _animation = GetComponent<CharacterAnimation>();
+        _animator = GetComponent<Animator>();
         _characterMain.OnDeath += Dispose;
     }
 
@@ -41,7 +41,7 @@ public class CharacterHealth : CharacterComponent, IDamagable, IHealable
     public void TakeDamage(float damage)
     {
         _health -= damage;
-        _animation.SetHit();
+        _animator.SetTrigger("Hit");
         _healthBar?.FillBar(_health / _maxHealth);
         if (_health <= 0.0f)
         {
@@ -56,7 +56,7 @@ public class CharacterHealth : CharacterComponent, IDamagable, IHealable
         if(_health > _maxHealth)
             _health = _maxHealth;
 
-        _animation.SetHeal();
+        _animator.SetTrigger("Heal");
         _healthBar?.FillBar(_health / _maxHealth);
     }
 }

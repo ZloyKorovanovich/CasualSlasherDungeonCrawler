@@ -17,6 +17,10 @@ public class CharacterDier : CharacterComponent
     private void Die()
     {
         DropItems();
+        var animator = GetComponent<Animator>();
+        if(animator)
+            Destroy(animator);
+
         ActivateRagdoll(true);
         Destroy(this);
     }

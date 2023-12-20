@@ -8,7 +8,7 @@ public class CharacterAttacker : CharacterComponent
     private Transform _rightHand;
 
     private WeaponInHand _currentWeapon;
-    private CharacterAnimation _animation;
+    private Animator _animator;
     private CharacterHealth _health;
 
     private bool _isAttacking;
@@ -18,7 +18,7 @@ public class CharacterAttacker : CharacterComponent
     private void Awake()
     {
         _characterMain = GetComponent<CharacterMain>();
-        _animation = GetComponent<CharacterAnimation>();
+        _animator = GetComponent<Animator>();
         _health = GetComponent<CharacterHealth>();
 
         _characterMain.OnDeath += Dispose;
@@ -43,7 +43,7 @@ public class CharacterAttacker : CharacterComponent
         if (_characterMain.IsAttack && _currentWeapon)
         {
             _isAttacking = true;
-            _animation.SetAttack(_currentWeapon.AttackSpeed);
+            _animator.SetTrigger("Attack");
 
             StartCoroutine(AttackCallDown());
         }
@@ -65,6 +65,8 @@ public class CharacterAttacker : CharacterComponent
     {
         _currentWeapon?.Drop();
         _currentWeapon = Instantiate(weapon, _rightHand).GetComponent<WeaponInHand>();
+        if(_currentWeapon)
+            _animator.SetFloat("AttackSpeed", _currentWeapon.AttackSpeed);
     }
 
     private void OnDestroy()
