@@ -2,11 +2,25 @@ using System.Collections;
 using UnityEngine;
 
 
+public enum FramesPerSecond
+{
+    fps_15 = 15,
+    fps_17 = 15,
+    fps_27 = 27,
+    fps_30 = 30,
+    fps_60 = 60,
+    fps_120 = 120
+}
+
 [RequireComponent(typeof(MeshRenderer))]
 public class HealthBar : MonoBehaviour
 {
     [SerializeField]
     private Material _materialReference;
+    [SerializeField]
+    private FramesPerSecond _frameRate = FramesPerSecond.fps_60;
+    [SerializeField]
+    private float _time = 1.0f;
 
     private MeshRenderer _renderer;
     private float _currentFill;
@@ -35,7 +49,7 @@ public class HealthBar : MonoBehaviour
 
     private IEnumerator FillSmothely(float amount)
     {
-        int iterations = 15;
+        int iterations = Mathf.RoundToInt((int)_frameRate * _time);
         var smoothStep = (amount - _currentFill) / iterations;
         _isCourutine = true;
 
@@ -44,7 +58,7 @@ public class HealthBar : MonoBehaviour
             _currentFill += smoothStep;
             _renderer.material.SetFloat("_Amount", _currentFill);
 
-            yield return new WaitForSeconds(0.5f / iterations);
+            yield return new WaitForSeconds(_time / iterations);
         }
 
         _isCourutine = false;

@@ -15,6 +15,7 @@ public class TargetCamera : MonoBehaviour
 
     private float currentDistance;
 
+
     private void Awake()
     {
         if (!target)

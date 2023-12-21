@@ -16,17 +16,20 @@ public class BotInput : CharacterInput
         _characterMain = GetComponent<CharacterMain>();
         _target = GameObject.FindGameObjectWithTag("Player").transform;
         _target.GetComponent<CharacterMain>().OnDeath += OnPlayerDead;
+
         _characterMain.OnDeath += CharacterDeath;
     }
 
     private void CharacterDeath()
     {
+        _target.GetComponent<CharacterMain>().OnDeath -= OnPlayerDead;
         Destroy(this);
     }
 
     private void OnPlayerDead()
     {
         _characterMain.SetInputs(Vector3.zero, transform.forward + Vector3.up * 1.5f, false);
+        _target.GetComponent<CharacterMain>().OnDeath -= OnPlayerDead;
         Destroy(this);
         return;
     }
