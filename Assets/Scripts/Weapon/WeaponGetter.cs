@@ -7,7 +7,7 @@ public class WeaponGetter : MonoBehaviour
     private GameObject _weapon;
 
 
-    private void OnEnable()
+    private void Start()
     {
         GetComponent<CharacterAttacker>().SetWeapon(_weapon);
         Destroy(this);
