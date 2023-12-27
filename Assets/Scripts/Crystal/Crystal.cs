@@ -19,6 +19,7 @@ public class Crystal : MonoBehaviour
     private IEnumerator StartingDelay()
     {
         yield return new WaitForSeconds(1f);
+        GetComponent<ParticleAnimation>()?.Spawn();
         _active = true;
     }
 
@@ -30,7 +31,15 @@ public class Crystal : MonoBehaviour
         if (other.tag == "Player")
         {
             ServiceLocator.GetService<CrystalManager>().AddCrystals(_crystalCount);
-            GetComponent<ItemAnimation>()?.PickUpAnimation();
+            GetComponent<ParticleAnimation>()?.Spawn();
+            var itemAnim = GetComponent<ItemAnimation>();
+            if(!itemAnim)
+            {
+                Destroy(gameObject);
+                return;
+            }
+
+            itemAnim.PickUpAnimation();
             Destroy(this);
         }
     }
