@@ -9,6 +9,8 @@ public class CharacterHealth : CharacterComponent, IDamagable, IHealable
     private float _health = 100.0f;
     [SerializeField]
     private HealthBar _healthBar;
+    [SerializeField]
+    private ParticleAnimation _bloodAnimation;
 
     private Animator _animator;
 
@@ -27,7 +29,7 @@ public class CharacterHealth : CharacterComponent, IDamagable, IHealable
 
     private void Start()
     {
-        _healthBar?.FillBar(_health / _maxHealth);
+        _healthBar?.Fill(_health / _maxHealth);
     }
 
     private void Dispose()
@@ -42,7 +44,8 @@ public class CharacterHealth : CharacterComponent, IDamagable, IHealable
     {
         _health -= damage;
         _animator.SetTrigger("Hit");
-        _healthBar?.FillBar(_health / _maxHealth);
+        _healthBar?.Fill(_health / _maxHealth);
+        _bloodAnimation?.Spawn();
         if (_health <= 0.0f)
         {
             _health = 0.0f;
@@ -57,6 +60,6 @@ public class CharacterHealth : CharacterComponent, IDamagable, IHealable
             _health = _maxHealth;
 
         _animator.SetTrigger("Heal");
-        _healthBar?.FillBar(_health / _maxHealth);
+        _healthBar?.Fill(_health / _maxHealth);
     }
 }

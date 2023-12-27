@@ -13,11 +13,12 @@ public class Crystal : MonoBehaviour
     {
         _active = false;
         StartCoroutine(StartingDelay());
+        GetComponent<ItemAnimation>()?.StartAnimation();
     }
 
     private IEnumerator StartingDelay()
     {
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1f);
         _active = true;
     }
 

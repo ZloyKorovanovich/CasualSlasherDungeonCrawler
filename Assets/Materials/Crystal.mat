@@ -27,8 +27,8 @@ Material:
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
   m_InvalidKeywords: []
-  m_LightmapFlags: 2
-  m_EnableInstancingVariants: 0
+  m_LightmapFlags: 0
+  m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
   stringTagMap: {}
@@ -62,6 +62,10 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Mask:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -112,11 +116,11 @@ Material:
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
-    - _Intensity: 7.89
+    - _Intensity: 4.04
     - _Metallic: 0.311
     - _OcclusionStrength: 1
     - _Parallax: 0.005
-    - _Power: 0.85
+    - _Power: 0.74
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
@@ -129,10 +133,10 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - _Base: {r: 0.2083127, g: 0.08140261, b: 0.4188679, a: 0}
+    - _Base: {r: 0.40749028, g: 0.19892481, b: 0.7584905, a: 0}
     - _BaseColor: {r: 0.22222973, g: 0.0894339, b: 0.2981131, a: 1}
     - _Color: {r: 0.22222969, g: 0.08943387, b: 0.29811308, a: 1}
-    - _Emission: {r: 0.26201668, g: 0.1488572, b: 0.381132, a: 0}
+    - _Emission: {r: 0.27229598, g: 0.17789248, b: 0.3584906, a: 0}
     - _EmissionColor: {r: 0.19936025, g: 0.12549017, b: 0.9019608, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []

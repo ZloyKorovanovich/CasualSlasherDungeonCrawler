@@ -5,18 +5,22 @@ using UnityEngine;
 [RequireComponent(typeof(CharacterMain))]
 public class PlayerInput : CharacterInput
 {
-    private const string _VERTICAL = "Vertical";
-    private const string _HORIZONTAL = "Horizontal";
-
     [SerializeField]
     private LayerMask _lookable;
     [SerializeField]
     private float _visionRadius = 5.0f;
 
+    private PlayerInputManager _inputManager;
+
     private void Awake()
     {
         _characterMain = GetComponent<CharacterMain>();
         _characterMain.OnDeath += CharacterDeath;
+    }
+
+    private void Start()
+    {
+        _inputManager = ServiceLocator.GetService<PlayerInputManager>();
     }
 
     private void CharacterDeath()
@@ -26,8 +30,8 @@ public class PlayerInput : CharacterInput
 
     private void Update()
     {
-        var inputAxis = new Vector3(Input.GetAxis(_HORIZONTAL), 0, Input.GetAxis(_VERTICAL));
-        _characterMain.SetInputs(inputAxis, TargetPoint(inputAxis), Input.GetMouseButtonUp(0));
+        var inputAxis = new Vector3(_inputManager.GetAxis("Horizontal"), 0, _inputManager.GetAxis("Vertical"));
+        _characterMain.SetInputs(inputAxis, TargetPoint(inputAxis), _inputManager.GetState("IsAttack"));
     }
 
     private Vector3 TargetPoint(Vector3 inputAxis)

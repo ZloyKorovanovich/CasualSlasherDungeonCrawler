@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2739165798809480004}
   - component: {fileID: 5713554726036722376}
   - component: {fileID: 6328862037690354120}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: CrystalParticle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -47,7 +47,7 @@ ParticleSystem:
   cullingMode: 0
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
-  emitterVelocityMode: 1
+  emitterVelocityMode: 0
   looping: 1
   prewarm: 0
   playOnAwake: 1
@@ -116,7 +116,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 2.5
+      scalar: 2
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -169,7 +169,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 4
+      scalar: 3
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -976,7 +976,7 @@ ParticleSystem:
     m_BurstCount: 1
     m_Bursts:
     - serializedVersion: 2
-      time: 0
+      time: 1
       countCurve:
         serializedVersion: 2
         minMaxState: 0
@@ -1031,7 +1031,7 @@ ParticleSystem:
           m_PostInfinity: 2
           m_RotationOrder: 4
       cycleCount: 1
-      repeatInterval: 50
+      repeatInterval: 30
       probability: 1
   SizeModule:
     enabled: 1
@@ -4987,6 +4987,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9c2f7ea5ada0884e931dc458f43a15d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _frameRate: 60
+  _time: 0.7
   _rotateSpeed: 20
   _movingSpeed: 2
   _movingAmplitude: 0.1

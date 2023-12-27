@@ -356,6 +356,52 @@ Transform:
   m_Children: []
   m_Father: {fileID: 7879839694132518017}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1600826155323995869
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7842917038311627002}
+  - component: {fileID: 846776757481217538}
+  m_Layer: 3
+  m_Name: BloodAnimation
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7842917038311627002
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1600826155323995869}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.3, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3588566783415595145}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &846776757481217538
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1600826155323995869}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8095c94be85c1248b3008d4d971d964, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _particle: {fileID: 9048251122003621590, guid: df52c5e41e535bc4d9f43164239f0e9d,
+    type: 3}
 --- !u!1 &2012132931543783603
 GameObject:
   m_ObjectHideFlags: 0
@@ -435,7 +481,6 @@ GameObject:
   - component: {fileID: 7581910310189359310}
   - component: {fileID: 135920263824097683}
   - component: {fileID: 2939408966577772070}
-  - component: {fileID: 3500779980542149760}
   - component: {fileID: 6210926410281459247}
   - component: {fileID: 5783237849471027490}
   - component: {fileID: 4476417282613380679}
@@ -464,6 +509,7 @@ Transform:
   - {fileID: 5565556094303811376}
   - {fileID: 875170794615485070}
   - {fileID: 4920874154586176210}
+  - {fileID: 7842917038311627002}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &3471657033105383247
@@ -552,18 +598,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2d1119b2ac247041b1e10c750c20679, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &3500779980542149760
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2218741525954087429}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aded4d93baeaa67499ac72347ae3d9d2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &6210926410281459247
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -594,6 +628,7 @@ MonoBehaviour:
   _maxHealth: 100
   _health: 100
   _healthBar: {fileID: 2166421446798163845}
+  _bloodAnimation: {fileID: 846776757481217538}
 --- !u!114 &4476417282613380679
 MonoBehaviour:
   m_ObjectHideFlags: 0

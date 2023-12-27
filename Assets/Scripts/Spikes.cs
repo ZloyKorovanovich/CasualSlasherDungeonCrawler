@@ -1,40 +1,25 @@
 using System.Collections;
 using UnityEngine;
 
-[RequireComponent(typeof(Collider))]
-public class Spikes : MonoBehaviour
+public class Spikes : FillAnimation
 {
     [SerializeField]
-    private float _damage = 20.0f;
+    private Vector3 _downPos;
     [SerializeField]
-    private float _damageCallDown = 1.0f;
+    private Vector3 _upPos;
 
-    private bool _isCourutine;
-
-    void OnTriggerStay(Collider collider)
+    protected override IEnumerator Animate(float amount)
     {
-        IDamagable damagable = collider.GetComponent<IDamagable>();
+        int iterations = Mathf.RoundToInt((int)_frameRate * _time);
+        var smoothStep = amount / iterations;
+        _isCourutine = true;
 
-        if (damagable != null)
+        for (int i = 0; i < iterations; i++)
         {
-            if (_isCourutine)
-                return;
-
-            damagable.TakeDamage(_damage);
-            _isCourutine = true;
-            StartCoroutine(DamageCallDown());
+            transform.localPosition += smoothStep * _upPos - _downPos;
+            yield return new WaitForSeconds(_time / iterations);
         }
-    }
 
-    private IEnumerator DamageCallDown()
-    {
-        yield return new WaitForSeconds(_damageCallDown);
-        _isCourutine = false;
-    }
-
-    private void OnDisable()
-    {
-        StopAllCoroutines();
         _isCourutine = false;
     }
 }
