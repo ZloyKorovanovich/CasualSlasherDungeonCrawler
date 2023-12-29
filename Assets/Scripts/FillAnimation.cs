@@ -25,8 +25,8 @@ public abstract class FillAnimation : CustomAnimation
 
     public virtual void Fill(float amount)
     {
-        if (_isCourutine)
-            StopCoroutine(Animate(0.0f));
+        if(_isCourutine)
+            StopAllCoroutines();
 
         StartCoroutine(Animate(amount));
     }
