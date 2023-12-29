@@ -17,6 +17,6 @@ public class PCInput : MonoBehaviour
         _manager.SetAxis("Vertical", Input.GetAxis("Vertical"));
         _manager.SetAxis("Horizontal", Input.GetAxis("Horizontal"));
 
-        _manager.SetState("IsAttack", Input.GetMouseButtonUp(0));
+        _manager.SetState("IsAttack", Input.GetMouseButton(0));
     }
 }
