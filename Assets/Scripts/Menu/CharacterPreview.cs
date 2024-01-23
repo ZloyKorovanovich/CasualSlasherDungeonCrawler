@@ -13,7 +13,6 @@ public class CharacterPreview : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(Time.deltaTime);
         character.transform.rotation = Quaternion.Euler(Vector3.up * Mathf.LerpAngle(character.transform.eulerAngles.y, targetAngle, Time.deltaTime * sensetivity));
     }
 }
