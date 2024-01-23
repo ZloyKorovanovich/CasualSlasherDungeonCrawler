@@ -29,9 +29,9 @@ public class TargetCamera : MonoBehaviour
     {
         float angleRad = Mathf.Deg2Rad * angle;
 
-        Vector3 offset = new Vector3(Mathf.Sin(angleRad) * initialDistance, height, Mathf.Cos(angleRad) * initialDistance);
-        Vector3 targetPosition = target.position + Vector3.up * _rayPosition;
-        Vector3 cameraPosition = targetPosition + offset;
+        var offset = new Vector3(Mathf.Sin(angleRad) * initialDistance, height, Mathf.Cos(angleRad) * initialDistance);
+        var targetPosition = target.position + Vector3.up * _rayPosition;
+        var cameraPosition = targetPosition + offset;
 
         transform.position = cameraPosition;
         transform.LookAt(targetPosition);
@@ -44,9 +44,9 @@ public class TargetCamera : MonoBehaviour
 
         float angleRad = Mathf.Deg2Rad * angle;
 
-        Vector3 offset = new Vector3(Mathf.Sin(angleRad) * _currentDistance, height, Mathf.Cos(angleRad) * _currentDistance);
-        Vector3 targetPosition = target.transform.position + Vector3.up * _rayPosition;
-        Vector3 cameraPosition = targetPosition + offset;
+        var offset = new Vector3(Mathf.Sin(angleRad) * _currentDistance, height, Mathf.Cos(angleRad) * _currentDistance);
+        var targetPosition = target.transform.position + Vector3.up * _rayPosition;
+        var cameraPosition = targetPosition + offset;
 
         Debug.DrawRay(targetPosition, (cameraPosition - targetPosition).normalized * 100f, Color.red, 0.1f);
         if (Physics.Raycast(targetPosition, (cameraPosition - targetPosition).normalized, obstacleLayer))
@@ -59,9 +59,9 @@ public class TargetCamera : MonoBehaviour
     {
         float angleRad = Mathf.Deg2Rad * angle;
 
-        Vector3 offset = new Vector3(Mathf.Sin(angleRad) * _currentDistance, height, Mathf.Cos(angleRad) * _currentDistance);
-        Vector3 targetPosition = target.transform.position + Vector3.up * _rayPosition;
-        Vector3 cameraPosition = targetPosition + offset;
+        var offset = new Vector3(Mathf.Sin(angleRad) * _currentDistance, height, Mathf.Cos(angleRad) * _currentDistance);
+        var targetPosition = target.transform.position + Vector3.up * _rayPosition;
+        var cameraPosition = targetPosition + offset;
 
         transform.position = Vector3.Lerp(transform.position, cameraPosition, Time.deltaTime * 4);
         transform.LookAt(targetPosition);
