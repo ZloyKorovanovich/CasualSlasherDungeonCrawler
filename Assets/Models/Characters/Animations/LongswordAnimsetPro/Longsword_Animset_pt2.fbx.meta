@@ -625,7 +625,7 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -2457,9 +2457,10 @@ ModelImporter:
           rotationOrder: 0
       events:
       - time: 0.35555556
-        functionName: SendEvent
+        functionName: MakeAttack
         data: 
-        objectReferenceParameter: {instanceID: 0}
+        objectReferenceParameter: {fileID: 11500000, guid: 9bcc88fcc67ada1479e517d2a088b224,
+          type: 3}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0

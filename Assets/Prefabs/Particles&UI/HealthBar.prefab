@@ -96,6 +96,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f10bcfeb8ee2ca4a89bc2800bbc4950, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _frameRate: 30
-  _time: 1
-  _materialReference: {fileID: 2100000, guid: 0dca5fdff0db30548b7372b8845518ac, type: 2}
+  frameRate: 60
+  time: 0.5
+  materialReference: {fileID: 2100000, guid: 0dca5fdff0db30548b7372b8845518ac, type: 2}

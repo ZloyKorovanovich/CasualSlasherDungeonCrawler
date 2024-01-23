@@ -1,20 +1,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(CharacterMain))]
 public class CharacterDier : CharacterComponent
 {
-    [SerializeField]
-    private List<GameObject> _drop = new List<GameObject>();
+    public List<GameObject> drop = new List<GameObject>();
 
     private void Awake()
     {
+        Init();
         ActivateRagdoll(false);
-        _characterMain = GetComponent<CharacterMain>();
-        _characterMain.OnDeath += Die;
     }
 
-    private void Die()
+    protected override void OnDeath()
     {
         DropItems();
         var animator = GetComponent<Animator>();
@@ -22,13 +19,13 @@ public class CharacterDier : CharacterComponent
             Destroy(animator);
 
         ActivateRagdoll(true);
-        Destroy(this);
+        base.OnDeath();
     }
 
     private void DropItems()
     {
         var service = ServiceLocator.GetService<PropManager>();
-        foreach (var item in _drop)
+        foreach (var item in drop)
             service.SpawnLostProp(item, transform.position + Vector3.up * 1.6f, transform.rotation);
     }
 

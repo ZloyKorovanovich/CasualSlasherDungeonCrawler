@@ -1,51 +1,41 @@
 using UnityEngine;
 
-[RequireComponent(typeof(CharacterMain))]
 public class CharacterHealth : CharacterComponent, IDamagable, IHealable
 {
-    [SerializeField]
-    private float _maxHealth = 100.0f;
-    [SerializeField]
-    private float _health = 100.0f;
-    [SerializeField]
-    private HealthBar _healthBar;
-    [SerializeField]
-    private ParticleAnimation _bloodAnimation;
+    public float maxHealth = 100.0f;
+    public FillBar healthBar;
+    public ParticleAnimation bloodAnimation;
 
+    private float _health;
     private Animator _animator;
-
-    private void OnValidate()
-    {
-        if(_health > _maxHealth)
-            _maxHealth = _health;
-    }
 
     private void Awake()
     {
-        _characterMain = GetComponent<CharacterMain>();
+        Init();
         _animator = GetComponent<Animator>();
-        _characterMain.OnDeath += Dispose;
     }
 
     private void Start()
     {
-        _healthBar?.Fill(_health / _maxHealth);
+        _health = maxHealth;
+        healthBar?.Fill(_health / maxHealth);
     }
 
-    private void Dispose()
+    protected override void OnDeath()
     {
-        if(_healthBar)
-            Destroy(_healthBar.gameObject);
+        if(healthBar)
+            Destroy(healthBar.gameObject);
 
-        Destroy(this);
+        base.OnDeath();
     }
 
     public void TakeDamage(float damage)
     {
         _health -= damage;
-        _animator.SetTrigger("Hit");
-        _healthBar?.Fill(_health / _maxHealth);
-        _bloodAnimation?.Spawn();
+        _animator.SetTrigger("hit");
+
+        healthBar?.Fill(_health / maxHealth);
+        bloodAnimation?.Spawn();
         if (_health <= 0.0f)
         {
             _health = 0.0f;
@@ -56,10 +46,10 @@ public class CharacterHealth : CharacterComponent, IDamagable, IHealable
     public void Heal(float amount)
     {
         _health += amount;
-        if(_health > _maxHealth)
-            _health = _maxHealth;
+        if(_health > maxHealth)
+            _health = maxHealth;
 
-        _animator.SetTrigger("Heal");
-        _healthBar?.Fill(_health / _maxHealth);
+        _animator.SetTrigger("heal");
+        healthBar?.Fill(_health / maxHealth);
     }
 }

@@ -1,43 +1,39 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[DisallowMultipleComponent]
-[RequireComponent(typeof(CharacterMain))]
 public class PlayerInput : CharacterInput
 {
-    [SerializeField]
-    private LayerMask _lookable;
-    [SerializeField]
-    private float _visionRadius = 5.0f;
+    public LayerMask lookable;
+    public float visionRadius = 5.0f;
 
-    private PlayerInputManager _inputManager;
+    private ControlManager _manager;
 
     private void Awake()
     {
-        _characterMain = GetComponent<CharacterMain>();
-        _characterMain.OnDeath += CharacterDeath;
+        Init();
     }
 
     private void Start()
     {
-        _inputManager = ServiceLocator.GetService<PlayerInputManager>();
-    }
-
-    private void CharacterDeath()
-    {
-        Destroy(this);
+        _manager = ServiceLocator.GetService<ControlManager>();
     }
 
     private void Update()
     {
-        var inputAxis = new Vector3(_inputManager.GetAxis("Horizontal"), 0, _inputManager.GetAxis("Vertical"));
-        _characterMain.SetInputs(inputAxis, TargetPoint(inputAxis), _inputManager.GetState("IsAttack"));
+        if(_manager.GetState("Stuck"))
+        {
+            _characterMain.SetInputs(Vector3.zero, TargetPoint(transform.position + transform.forward + Vector3.up * 1.5f), false);
+            return;
+        }
+
+        var inputAxis = new Vector3(_manager.GetAxis("Horizontal"), 0, _manager.GetAxis("Vertical"));
+        _characterMain.SetInputs(inputAxis, TargetPoint(inputAxis), _manager.GetState("IsAttack"));
     }
 
     private Vector3 TargetPoint(Vector3 inputAxis)
     {
         var closestTarget = transform.position + inputAxis + Vector3.up * 1.5f;
-        var casted = Physics.OverlapSphere(transform.position, _visionRadius, _lookable, QueryTriggerInteraction.Collide);
+        var casted = Physics.OverlapSphere(transform.position, visionRadius, lookable, QueryTriggerInteraction.Collide);
 
         if (casted.Length > 0)
         {

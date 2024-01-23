@@ -11,7 +11,7 @@ public static class ServiceLocator
         string key = typeof(T).Name;
         if (_services.ContainsKey(key))
         {
-            Debug.LogError("Attempting to register service that already exists");
+            Debug.LogError("Attempting to register service that already exists" + key);
             return;
         }
 

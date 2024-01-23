@@ -4,8 +4,8 @@ using UnityEngine;
 [DisallowMultipleComponent]
 public class CharacterMain : MonoBehaviour
 {
-    public Action OnSetInputs;
-    public Action OnDeath;
+    public Action onSetInputs;
+    public Action onDeath;
 
     private bool _isAttack;
     private bool _isPickUp;
@@ -13,23 +13,21 @@ public class CharacterMain : MonoBehaviour
     private Vector3 _target;
 
     public bool IsAttack => _isAttack;
-    public bool IsPickUp => _isPickUp;
     public Vector3 InputAxis => _inputAxis;
     public Vector3 Target => _target;
 
-    public void SetInputs(Vector3 inputAxis, Vector3 target, bool interacting)
+    public void SetInputs(Vector3 inputAxis, Vector3 target, bool isAttack)
     {
         _inputAxis = inputAxis;
         _target = target;
-        _isAttack = interacting;
-        _isPickUp = interacting;
+        _isAttack = isAttack;
 
-        OnSetInputs?.Invoke();
+        onSetInputs?.Invoke();
     }
 
     public void Die()
     {
-        OnDeath?.Invoke();
+        onDeath?.Invoke();
         Destroy(this);
     }
 }

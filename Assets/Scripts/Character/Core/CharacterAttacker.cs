@@ -1,52 +1,61 @@
 using UnityEngine;
 
-[RequireComponent(typeof(CharacterMain))]
 public class CharacterAttacker : CharacterComponent
 {
-    [SerializeField]
-    private Transform _rightHand;
+    public RuntimeAnimatorController defaultAnimator;
 
     private WeaponInHand _currentWeapon;
     private Animator _animator;
     private CharacterHealth _health;
-
-    public WeaponInHand CurrentWeapon => _currentWeapon;
+    private Transform _rightHand;
 
     private void Awake()
     {
-        _characterMain = GetComponent<CharacterMain>();
+        Init();
         _animator = GetComponent<Animator>();
         _health = GetComponent<CharacterHealth>();
 
-        _characterMain.OnDeath += Dispose;
+        _rightHand = _animator.GetBoneTransform(HumanBodyBones.RightHand);
+        _animator.runtimeAnimatorController = defaultAnimator;
     }
 
     private void Start()
     {
-        _characterMain.OnSetInputs += UpdateInputs;
+        _characterMain.onSetInputs += UpdateInputs;
     }
 
-    private void Dispose()
+    protected override void OnDeath()
     {
         _currentWeapon?.Drop();
-        Destroy(this);
+        base.OnDeath();
     }
 
     private void UpdateInputs()
     {
-        _animator.SetBool("IsAttack", _characterMain.IsAttack && _currentWeapon);
+        _animator.SetBool("isAttack", _characterMain.IsAttack && _currentWeapon);
     }
 
     public void MakeAttack()
     {
-        _currentWeapon.Attack(transform.position + Vector3.up * 1.5f, transform.forward, _health);
+        _currentWeapon.Attack(transform.position + Vector3.up, transform.forward, _health);
     }
 
     public void SetWeapon(GameObject weapon)
     {
         _currentWeapon?.Drop();
         _currentWeapon = Instantiate(weapon, _rightHand).GetComponent<WeaponInHand>();
-        if(_currentWeapon)
-            _animator.SetFloat("AttackSpeed", _currentWeapon.AttackSpeed);
+
+        if (_currentWeapon)
+        {
+            if(_currentWeapon.animatorController != _animator.runtimeAnimatorController)
+                _animator.runtimeAnimatorController = _currentWeapon.animatorController;
+
+            _animator.SetFloat("speed", _currentWeapon.speed);
+        }
+        else
+        {
+            _animator.runtimeAnimatorController = defaultAnimator;
+            _animator.SetFloat("speed", 1.0f);
+        }
     }
 }

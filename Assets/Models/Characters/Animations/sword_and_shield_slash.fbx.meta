@@ -1,7 +1,7 @@
 fileFormatVersion: 2
 guid: 55f83635bbf3e704a9d7302e821c0e01
 ModelImporter:
-  serializedVersion: 21300
+  serializedVersion: 22200
   internalIDToNameTable:
   - first:
       1: 100000
@@ -472,9 +472,10 @@ ModelImporter:
       curves: []
       events:
       - time: 0.39788732
-        functionName: Attacking
+        functionName: MakeAttack
         data: 
-        objectReferenceParameter: {fileID: 11500000, guid: 723001bd902d95a4f873de29ea075f72, type: 3}
+        objectReferenceParameter: {fileID: 11500000, guid: 9bcc88fcc67ada1479e517d2a088b224,
+          type: 3}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
@@ -626,6 +627,7 @@ ModelImporter:
     addColliders: 0
     useSRGBMaterialColor: 1
     sortHierarchyByName: 1
+    importPhysicalCameras: 1
     importVisibility: 0
     importBlendShapes: 1
     importCameras: 0
@@ -653,6 +655,7 @@ ModelImporter:
     secondaryUVMinObjectScale: 1
     secondaryUVPackMargin: 4
     useFileScale: 1
+    strictVertexDataChecks: 0
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 2
@@ -1457,6 +1460,7 @@ ModelImporter:
   humanoidOversampling: 1
   avatarSetup: 1
   addHumanoidExtraRootOnlyWhenUsingAvatar: 0
+  importBlendShapeDeformPercent: 0
   remapMaterialsIfMaterialImportModeIsNone: 1
   additionalBone: 0
   userData: 

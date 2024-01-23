@@ -1,42 +1,37 @@
 using UnityEngine;
 
-[DisallowMultipleComponent]
-[RequireComponent(typeof(CharacterMain))]
 public class CharacterMover : CharacterComponent
 {
     private const float _GRAVITY_SPEED = 0.5f;
 
-    [SerializeField]
-    private float _sensetivity = 7.0f;
-    [SerializeField]
-    private float _luft = 60.0f;
-    [SerializeField, Range(0.0f, 1.0f)]
-    private float _moveSpeed = 1.0f;
+    public float sensetivity = 7.0f;
+    public float luft = 60.0f;
 
     private CharacterController _controller;
     private Animator _animator;
-
     private bool _isRotating;
 
     private void Awake()
     {
+        Init();
         _controller = GetComponent<CharacterController>();
         _animator = GetComponent<Animator>();
-        _characterMain = GetComponent<CharacterMain>();
-
-        _characterMain.OnDeath += Dispose;
     }
 
-    private void OnAnimatorIK(int layerInde)
+    private void Update()
     {
         Displace(_characterMain.InputAxis);
         Rotate(_characterMain.Target, _characterMain.InputAxis, Time.deltaTime);
+    }
+
+    private void OnAnimatorIK(int layerIndex)
+    {
         SetLook(_characterMain.Target);
     }
 
-    private void Dispose()
+    protected override void OnDeath()
     {
-        Destroy(this);
+        base.OnDeath();
         Destroy(_controller);
     }
 
@@ -44,9 +39,8 @@ public class CharacterMover : CharacterComponent
     {
         _controller.Move(Vector3.down * _GRAVITY_SPEED);
         var direction = transform.InverseTransformDirection(inputAxis);
-        _animator.SetFloat("Vertical", direction.z);
-        _animator.SetFloat("Horizontal", direction.x);
-        _animator.SetFloat("MoveSpeed", _moveSpeed);
+        _animator.SetFloat("vert", direction.z);
+        _animator.SetFloat("hor", direction.x);
     }
 
     private void Rotate(Vector3 target, Vector3 inputAxis, float deltaTime)
@@ -59,13 +53,13 @@ public class CharacterMover : CharacterComponent
         transform.LookAt(target);
 
         float angle = Mathf.DeltaAngle(transform.eulerAngles.y, oldRotation.y);
-        _animator.SetFloat("Rotation", -Mathf.Sign(angle), 1.0f / _sensetivity, Time.deltaTime);
+        _animator.SetFloat("rot", -Mathf.Sign(angle), 1.0f / sensetivity, Time.deltaTime);
         angle = Mathf.Abs(angle);
-        deltaTime *= _sensetivity;
+        deltaTime *= sensetivity;
 
         if (!rotating)
             oldRotation.y = Mathf.LerpAngle(oldRotation.y, transform.eulerAngles.y, deltaTime);
-        else if (angle > _luft)
+        else if (angle > luft)
             _isRotating = true;
 
         transform.eulerAngles = oldRotation;
@@ -77,8 +71,7 @@ public class CharacterMover : CharacterComponent
             _isRotating = false;
             rotating = false;
         }
-
-        _animator.SetBool("IsRotating", rotating);
+        _animator.SetBool("isRot", rotating);
     }
 
     private void SetLook(Vector3 target)

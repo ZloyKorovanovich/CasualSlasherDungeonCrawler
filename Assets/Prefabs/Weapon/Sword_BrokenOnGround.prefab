@@ -147,6 +147,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00a31a1e775ebf847865cc5b827aa771, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _level: 0
-  _weaponInHand: {fileID: 8475250478957152965, guid: 8a5f9ed194a16ca40b5a37943b2f395b,
+  weaponInHand: {fileID: 8475250478957152965, guid: 8a5f9ed194a16ca40b5a37943b2f395b,
     type: 3}

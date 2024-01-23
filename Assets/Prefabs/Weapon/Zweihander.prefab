@@ -96,14 +96,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c83f4ff609ab82a4480b6471d0cd4390, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _level: 1
-  _damage: 20
-  _attackLength: 1
-  _attackRadius: 1.5
-  _attackable:
+  speed: 1
+  damage: 20
+  attackLength: 1.2
+  attackRadius: 1
+  attackable:
     serializedVersion: 2
-    m_Bits: 8
-  _attackCallDown: 1
-  _attackSpeed: 1
-  _weaponOnGround: {fileID: 6281132835656665426, guid: f7abde6d74246544ca68af6fe7faa1b4,
+    m_Bits: 264
+  animatorController: {fileID: 9100000, guid: 1288540ff26469d47a6e477de2214b3d, type: 2}
+  weaponOnGround: {fileID: 6281132835656665426, guid: f7abde6d74246544ca68af6fe7faa1b4,
     type: 3}

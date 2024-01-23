@@ -3,13 +3,11 @@ using UnityEngine;
 [RequireComponent(typeof(CharacterAttacker))]
 public class WeaponGetter : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject _weapon;
-
+    public GameObject weapon;
 
     private void Start()
     {
-        GetComponent<CharacterAttacker>().SetWeapon(_weapon);
+        GetComponent<CharacterAttacker>().SetWeapon(weapon);
         Destroy(this);
     }
 }

@@ -1,29 +1,28 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class ParticleManager : MonoBehaviour, IService
 {
-    [SerializeField]
-    private int _maxParticles;
-    [SerializeField]
-    private Transform _particleRoot;
+    public int maxParticles;
+    public Transform particleRoot;
 
     private List<GameObject> _particles = new List<GameObject>();
 
-    private void Awake()
+    #region IService
+    private void OnEnable()
     {
         ServiceLocator.RegisterService(this);
     }
 
-    private void OnDestroy()
+    private void OnDisable()
     {
         ServiceLocator.UnregisterService<ParticleManager>();
     }
+    #endregion
 
     public bool SpawnParticle(GameObject particle, Vector3 position, Vector3 eulerAngles)
     {
-        if(_particles.Count >= _maxParticles)
+        if(_particles.Count >= maxParticles)
         {
             if (!GetFreeSpace(out var index))
                 return false;
@@ -38,7 +37,7 @@ public class ParticleManager : MonoBehaviour, IService
 
         GameObject Spawn()
         {
-            var instance = Instantiate(particle, _particleRoot);
+            var instance = Instantiate(particle, particleRoot);
             instance.transform.position = position;
             instance.transform.eulerAngles = eulerAngles;
             return instance;

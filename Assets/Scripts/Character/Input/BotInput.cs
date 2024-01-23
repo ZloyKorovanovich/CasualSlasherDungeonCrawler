@@ -1,37 +1,43 @@
 using UnityEngine;
 
-[DisallowMultipleComponent]
-[RequireComponent(typeof(CharacterMain))]
 public class BotInput : CharacterInput
 {
-    [SerializeField]
-    private float _agressiveDistance = 5.0f;
-    [SerializeField]
-    private float _attackDistance = 1.3f;
+    public float agressiveDistance = 5f;
+    public float attackDistance = 1.3f;
+    public float RetreatBound = 3f;
+    public float retreatDistance = 1f;
+    public float delta = 3f;
 
     private Transform _target;
+    private Vector3 _inputAxis;
+    private float _targetDirection;
+    private bool _isAttack;
+
+    private void OnValidate()
+    {
+        if(RetreatBound < retreatDistance)
+            retreatDistance = RetreatBound;
+    }
 
     private void Awake()
     {
-        _characterMain = GetComponent<CharacterMain>();
+        Init();
         _target = GameObject.FindGameObjectWithTag("Player").transform;
-        _target.GetComponent<CharacterMain>().OnDeath += OnPlayerDead;
-
-        _characterMain.OnDeath += CharacterDeath;
-    }
-
-    private void CharacterDeath()
-    {
-        _target.GetComponent<CharacterMain>().OnDeath -= OnPlayerDead;
-        Destroy(this);
+        _target.GetComponent<CharacterMain>().onDeath += OnPlayerDead;
     }
 
     private void OnPlayerDead()
     {
         _characterMain.SetInputs(Vector3.zero, transform.forward + Vector3.up * 1.5f, false);
-        _target.GetComponent<CharacterMain>().OnDeath -= OnPlayerDead;
+        _target.GetComponent<CharacterMain>().onDeath -= OnPlayerDead;
         Destroy(this);
         return;
+    }
+
+    private void OnDisable()
+    {
+        if(_target)
+            _target.GetComponent<CharacterMain>().onDeath -= OnPlayerDead;
     }
 
     private void Update()
@@ -39,15 +45,28 @@ public class BotInput : CharacterInput
         if(!_target)
             OnPlayerDead();
 
-        var dist = Vector3.Distance(transform.position, _target.position);
-        if (dist < _agressiveDistance)
+        //Rewrite
+        var dir = _target.transform.position - transform.position;
+        var sqrDist = Vector3.SqrMagnitude(dir);
+
+        _isAttack = false;
+        if (sqrDist <= agressiveDistance * agressiveDistance)
         {
-            if (dist < _attackDistance)
-                _characterMain.SetInputs(Vector3.zero, _target.position + Vector3.up * 1.5f, true);
+            if(sqrDist < RetreatBound * RetreatBound)
+            {
+                if (sqrDist < retreatDistance * retreatDistance)
+                    _targetDirection = -1f;
+
+                if(sqrDist <= attackDistance * attackDistance)
+                    _isAttack = true;
+            }
             else
-                _characterMain.SetInputs(Vector3.Normalize(_target.position - transform.position), _target.position + Vector3.up * 1.5f, false);
+                _targetDirection = 1f;
         }
         else
-            _characterMain.SetInputs(Vector3.zero, _target.position + Vector3.up * 1.5f, false);
+            _targetDirection = 0f;
+
+        _inputAxis = Vector3.Lerp(_inputAxis, dir.normalized * _targetDirection, Time.deltaTime * delta);
+        _characterMain.SetInputs(_inputAxis, _target.transform.position + Vector3.up * 1.5f, _isAttack);
     }
 }

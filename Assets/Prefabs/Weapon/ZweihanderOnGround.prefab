@@ -11,10 +11,9 @@ GameObject:
   - component: {fileID: 7143314676328428007}
   - component: {fileID: 7408164767996707337}
   - component: {fileID: 5216575188228821852}
-  - component: {fileID: 2349596725999775126}
   - component: {fileID: 7301386898654586742}
   - component: {fileID: 6201797873819811463}
-  - component: {fileID: -2503487036541653783}
+  - component: {fileID: 2349596725999775126}
   m_Layer: 0
   m_Name: ZweihanderOnGround
   m_TagString: Untagged
@@ -87,21 +86,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &2349596725999775126
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6281132835656665426}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 00a31a1e775ebf847865cc5b827aa771, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _level: 1
-  _weaponInHand: {fileID: 3108496028414329684, guid: 8d5db137963512147b073be58a063bdf,
-    type: 3}
 --- !u!64 &7301386898654586742
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -151,24 +135,17 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!135 &-2503487036541653783
-SphereCollider:
+--- !u!114 &2349596725999775126
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6281132835656665426}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.9785939
-  m_Center: {x: 0, y: 0.7611491, z: -0.000000014901161}
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00a31a1e775ebf847865cc5b827aa771, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponInHand: {fileID: 3108496028414329684, guid: 8d5db137963512147b073be58a063bdf,
+    type: 3}

@@ -2,22 +2,23 @@ using UnityEngine;
 
 public class PropManager : MonoBehaviour, IService
 {
-    [SerializeField]
-    private Transform _propRoot;
+    public Transform propRoot;
 
-    private void Awake()
+    #region IService
+    private void OnEnable()
     {
         ServiceLocator.RegisterService(this);
     }
 
-    private void OnDestroy()
+    private void OnDisable()
     {
         ServiceLocator.UnregisterService<PropManager>();
     }
+    #endregion
 
     public GameObject SpawnProp(GameObject prop, Vector3 position, Quaternion rotation)
     {
-        var instance = Instantiate(prop, _propRoot);
+        var instance = Instantiate(prop, propRoot);
         instance.transform.position = position;
         instance.transform.rotation = rotation;
 
@@ -26,7 +27,7 @@ public class PropManager : MonoBehaviour, IService
 
     public void SpawnLostProp(GameObject prop, Vector3 position, Quaternion rotation)
     {
-        var instance = Instantiate(prop, _propRoot);
+        var instance = Instantiate(prop, propRoot);
         instance.transform.position = position;
         instance.transform.rotation = rotation;
     }
