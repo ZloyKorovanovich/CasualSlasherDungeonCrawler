@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class CharacterMover : CharacterComponent
 {
-    private const float _GRAVITY_SPEED = 0.5f;
+    private const float _GRAVITY_SPEED = 9f;
 
     public float sensetivity = 7.0f;
     public float luft = 60.0f;
@@ -37,7 +37,7 @@ public class CharacterMover : CharacterComponent
 
     private void Displace(Vector3 inputAxis)
     {
-        _controller.Move(Vector3.down * _GRAVITY_SPEED);
+        _controller.Move(Vector3.down * _GRAVITY_SPEED * Time.deltaTime);
         var direction = transform.InverseTransformDirection(inputAxis);
         _animator.SetFloat("vert", direction.z);
         _animator.SetFloat("hor", direction.x);

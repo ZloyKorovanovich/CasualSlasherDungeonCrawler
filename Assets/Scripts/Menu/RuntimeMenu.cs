@@ -3,6 +3,8 @@ using UnityEngine.SceneManagement;
 
 public class RuntimeMenu : MonoBehaviour
 {
+    public GameObject settings;
+
     public void Resume()
     {
         var service = ServiceLocator.GetService<ControlManager>();
@@ -11,7 +13,7 @@ public class RuntimeMenu : MonoBehaviour
 
     public void Settings()
     {
-
+        settings.SetActive(true);
     }
 
     public void Exit()

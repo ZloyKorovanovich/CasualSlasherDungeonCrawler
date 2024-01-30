@@ -691,7 +691,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1807742295214562241
 Transform:
   m_ObjectHideFlags: 0
@@ -727,7 +727,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 2d3a92d402d9e224d993cd7a42865292, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1467,6 +1467,7 @@ GameObject:
   - component: {fileID: 4701798190887057804}
   - component: {fileID: 6117878270527516981}
   - component: {fileID: 5042828141230477715}
+  - component: {fileID: 3277699542436339131}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -1483,7 +1484,7 @@ Transform:
   m_GameObject: {fileID: 3857731820611523952}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4.74, y: 0, z: 9.81}
+  m_LocalPosition: {x: 4.71, y: 0, z: 10.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1637,6 +1638,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   drop: []
+--- !u!114 &3277699542436339131
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3857731820611523952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f8852ad42a61134998533d2339093b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skins:
+  - {fileID: 207277834683485329}
+  - {fileID: 1190247159388652322}
 --- !u!1 &3972906222360219710
 GameObject:
   m_ObjectHideFlags: 0
